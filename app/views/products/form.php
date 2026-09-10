@@ -37,7 +37,7 @@
         <form data-live-form method="post" action="<?= ($mode ?? 'create') === 'edit' ? site_url('products/update/' . ($product['id'] ?? 0)) : site_url('products/store') ?>">
             <div class="row">
                 <label for="product_name">Product Name</label>
-                <input type="text" id="product_name" name="product_name" value="<?= htmlspecialchars($product['product_name'] ?? '') ?>" placeholder="e.g. LavaLust Notebook" required>
+                <input type="text" id="product_name" name="product_name" value="<?= htmlspecialchars($product['product_name'] ?? '') ?>" placeholder="e.g. Gcash watch" required>
             </div>
             <div class="row">
                 <label for="description">Description</label>
