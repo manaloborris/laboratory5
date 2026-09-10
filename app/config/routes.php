@@ -46,6 +46,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 $router->get('/', 'Auth::login');
 $router->get('/login', 'Auth::login');
+$router->get('/auth/attempt', 'Auth::login');
 $router->post('/auth/attempt', 'Auth::attempt');
 $router->get('/auth/logout', 'Auth::logout');
 
