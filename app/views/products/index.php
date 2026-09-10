@@ -80,7 +80,7 @@
 
                         <div class="product-actions">
                             <a class="btn" href="<?= site_url('products/edit/' . ($product['id'] ?? 0)) ?>">Edit</a>
-                            <a class="btn btn-danger" href="<?= site_url('products/delete/' . ($product['id'] ?? 0)) ?>" onclick="return confirm('Delete this product?')">Delete</a>
+                            <a class="btn btn-danger delete-trigger" href="<?= site_url('products/delete/' . ($product['id'] ?? 0)) ?>" data-product-name="<?= htmlspecialchars($product['product_name'] ?? 'this item', ENT_QUOTES, 'UTF-8') ?>">Delete</a>
                         </div>
                     </article>
                 <?php endforeach; ?>
@@ -100,6 +100,19 @@
             <?php endif; ?>
         </div>
     </section>
+</div>
+
+<div class="delete-modal" id="delete-modal" aria-hidden="true" role="dialog" aria-labelledby="delete-modal-title">
+    <div class="delete-modal__panel">
+        <span class="delete-modal__stamp">WARNING // DESTRUCTIVE ACTION</span>
+        <div class="delete-modal__icon">!</div>
+        <h2 id="delete-modal-title">Delete this item?</h2>
+        <p>You're about to remove <strong id="delete-product-name">this product</strong> from the inventory ledger. This action cannot be undone.</p>
+        <div class="delete-modal__actions">
+            <button type="button" class="btn delete-cancel">Abort</button>
+            <a class="btn btn-danger delete-confirm" href="#">Delete Item</a>
+        </div>
+    </div>
 </div>
 
 <script src="<?= base_url('assets/js/products.js') ?>"></script>

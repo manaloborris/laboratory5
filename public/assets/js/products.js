@@ -29,10 +29,42 @@ document.addEventListener('DOMContentLoaded', function () {
     productLinks.forEach((link) => {
         link.addEventListener('click', function (e) {
             // Only show loader for actual navigation links, not delete confirmations
-            if (!link.hasAttribute('onclick') || !link.getAttribute('onclick').includes('confirm')) {
+            if (!link.classList.contains('delete-trigger') && (!link.hasAttribute('onclick') || !link.getAttribute('onclick').includes('confirm'))) {
                 showPageLoader();
             }
         });
+    });
+
+    const deleteModal = document.getElementById('delete-modal');
+    const deleteName = document.getElementById('delete-product-name');
+    const deleteConfirm = deleteModal ? deleteModal.querySelector('.delete-confirm') : null;
+    const deleteCancel = deleteModal ? deleteModal.querySelector('.delete-cancel') : null;
+
+    document.querySelectorAll('.delete-trigger').forEach((trigger) => {
+        trigger.addEventListener('click', function (event) {
+            event.preventDefault();
+            if (!deleteModal || !deleteConfirm || !deleteName) return;
+
+            deleteName.textContent = trigger.dataset.productName || 'this product';
+            deleteConfirm.href = trigger.href;
+            deleteModal.classList.add('active');
+            deleteModal.setAttribute('aria-hidden', 'false');
+            deleteCancel.focus();
+        });
+    });
+
+    function closeDeleteModal() {
+        if (!deleteModal) return;
+        deleteModal.classList.remove('active');
+        deleteModal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (deleteCancel) deleteCancel.addEventListener('click', closeDeleteModal);
+    if (deleteModal) deleteModal.addEventListener('click', function (event) {
+        if (event.target === deleteModal) closeDeleteModal();
+    });
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeDeleteModal();
     });
 
     // Show loader on page unload (when form submits or links are clicked)

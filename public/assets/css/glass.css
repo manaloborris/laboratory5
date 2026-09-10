@@ -646,6 +646,75 @@ textarea { resize: vertical; min-height: 140px; }
 }
 .creds::before { content: "KEY — "; color: var(--warn); }
 
+/* ──────────────── delete warning ── */
+.delete-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(20, 43, 53, 0.78);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.16s ease;
+    z-index: 9000;
+}
+.delete-modal.active { opacity: 1; pointer-events: auto; }
+
+.delete-modal__panel {
+    position: relative;
+    width: min(520px, 100%);
+    padding: 34px;
+    background: var(--paper-hi);
+    border: 4px solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: 10px 10px 0 var(--bad);
+}
+.delete-modal__stamp {
+    display: inline-block;
+    padding: 4px 9px;
+    color: var(--bad);
+    border: 2px solid var(--bad);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+}
+.delete-modal__icon {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    margin: 24px 0 14px;
+    background: var(--bad);
+    color: var(--paper-hi);
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 var(--ink);
+    font-family: var(--disp);
+    font-size: 30px;
+    font-weight: 900;
+}
+.delete-modal__panel h2 {
+    font-family: var(--disp);
+    font-size: 30px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+.delete-modal__panel p {
+    max-width: 430px;
+    margin: 10px 0 26px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 13px;
+}
+.delete-modal__panel strong { color: var(--ink); }
+.delete-modal__actions { display: flex; justify-content: flex-end; gap: 12px; }
+
 /* ──────────────── responsive ── */
 @media (max-width: 760px) {
     .navbar { flex-direction: column; align-items: stretch; }
@@ -659,4 +728,7 @@ textarea { resize: vertical; min-height: 140px; }
     .card-list { padding: 0 16px; }
     .product-actions { flex-direction: column; }
     .product-actions .btn + .btn { border-top: 3px solid var(--ink); }
+    .delete-modal__panel { padding: 26px 22px; }
+    .delete-modal__actions { flex-direction: column-reverse; }
+    .delete-modal__actions .btn { width: 100%; }
 }
